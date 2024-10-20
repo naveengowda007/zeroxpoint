@@ -1,14 +1,14 @@
-FROM node:14 AS ui-build
+FROM node:18 AS ui-build
 WORKDIR /usr/src/app
 COPY Website/ ./Website/
 RUN cd Website && npm install && npm run build
 
-FROM node:14 AS server-build
+FROM node:18 AS server-build
 WORKDIR /usr/src/app
 COPY Backend/ ./Backend/
 RUN cd Backend && npm install
 
-FROM node:14
+FROM node:18
 WORKDIR /usr/src/app/
 COPY --from=server-build /usr/src/app/Backend/ ./
 COPY --from=ui-build /usr/src/app/Website/build ./Website/build
