@@ -11,7 +11,7 @@ RUN cd Backend && npm install
 FROM node:14
 WORKDIR /usr/src/app/
 COPY --from=server-build /usr/src/app/Backend/ ./
-COPY --from=ui-build /usr/src/app/Website/dist ./Website/dist
+COPY --from=ui-build /usr/src/app/Website/build ./Website/build
 RUN ls
 EXPOSE 3001
 EXPOSE 3000
