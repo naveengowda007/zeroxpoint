@@ -1,4 +1,4 @@
-FROM mysql:9.1.0
+FROM mysql:8.0.40
 
 ENV MYSQL_ROOT_PASSWORD="zeroxpoint@1234"
 ENV MYSQL_DATABASE="zeroxpoint"
