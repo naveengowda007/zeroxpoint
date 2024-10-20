@@ -1,0 +1,44 @@
+services:
+  db:
+    build:
+      context: ./Docker-files/db
+    container_name: db
+    ports:
+      - "3306:3306"
+    volumes:
+      - zeroxpoint-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=zeroxpoint@1234
+        MYSQL_DATABASE=zeroxpoint
+    networks:
+      - app-network
+  web:
+    build: .
+    ports:
+      - "3000:3000" # Map port 3000 of the container to port 3000 on the host
+    depends_on:
+      - db # Ensure the database starts before the web app
+    restart: unless-stopped
+    networks:
+      - app-network
+    #nginx
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf # Mount custom NGINX config
+    depends_on:
+      - web
+    restart: unless-stopped
+    networks:
+      - app-network
+
+# Define named volumes to persist data
+volumes:
+  zeroxpoint-data:
+
+#nginx network config
+networks:
+  app-network:
+    driver: bridge
