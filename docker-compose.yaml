@@ -6,7 +6,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - zeroxpoint-data:/var/lib/mysql
+      - zeroxpoint-data2:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: zeroxpoint@1234
     networks:
@@ -35,7 +35,7 @@ services:
 
 # Define named volumes to persist data
 volumes:
-  zeroxpoint-data:
+  zeroxpoint-data2:
 
 #nginx network config
 networks:
