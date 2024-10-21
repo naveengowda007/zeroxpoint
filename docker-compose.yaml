@@ -8,8 +8,7 @@ services:
     volumes:
       - zeroxpoint-data:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=zeroxpoint@1234
-      - MYSQL_DATABASE=zeroxpoint
+      MYSQL_ROOT_PASSWORD: zeroxpoint@1234
     networks:
       - app-network
   web:
