@@ -1,7 +1,7 @@
 services:
   db:
-    build:
-      context: ./Docker-files/db
+    image: mysql
+    restart: always
     container_name: db
     ports:
       - "3306:3306"
