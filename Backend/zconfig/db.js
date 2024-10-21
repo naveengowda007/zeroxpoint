@@ -6,6 +6,7 @@ const connection = mysql.createConnection({
   user: "root",
   password: "my-secret-pw",
   database: "zeroxpoint",
+  port: 3306,
 });
 
 // connect to database
