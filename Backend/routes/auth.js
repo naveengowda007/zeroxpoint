@@ -13,7 +13,7 @@ let OTPAuthToken = "";
 async function getToken(number) {
   var options = {
     method: "GET",
-    url: "https://cpaas.messagecentral.com/auth/v1/authentication/token?country=IN&email=xeroxpoint766@gmail.com&customerId=C-794E4CB7DE7C443&key=emVyb3hANzY2&scope=NEW",
+    url: "https://cpaas.messagecentral.com/auth/v1/authentication/token?country=IN&email=xeroxpoint766@gmail.com&customerId=C-794E4CB7DE7C443&key=U2hpdnVANzY2&scope=NEW",
     headers: { accept: "*/*" },
   };
 
