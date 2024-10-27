@@ -10,6 +10,7 @@
 		"adm-zip": "^0.5.10",
 		"archiver": "^5.3.1",
 		"aws-sdk": "^2.1691.0",
+		"axios": "^1.7.7",
 		"bcrypt": "^5.1.0",
 		"cookie-parser": "~1.4.4",
 		"cors": "^2.8.5",
