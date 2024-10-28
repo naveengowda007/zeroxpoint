@@ -144,11 +144,12 @@ router.post("/forgetpassword", async (req, res) => {
   if (!result) {
     res.status(403).send({ message: "User not registered" });
   } else {
-    let id = result.userid;
+    let userid = result.userid;
     let userData = {
-      id,
+      userid,
       phone,
     };
+    console.log(userData);
     sendOTP(userData);
     res.send({ message: "OTP sent" });
   }
@@ -159,7 +160,7 @@ router.post("/forgetpassword", async (req, res) => {
 router.post("/updatepassword", async (req, res) => {
   const { phone, password } = req.body;
   const data = { password: password };
-  await generateUpdateQuery(users, data, phone);
+  await generateUpdateQuery("users", data, phone);
   res.status(201).send({ message: "Password updated" });
 });
 
@@ -182,7 +183,7 @@ async function sendOTP(res, isDemo = false) {
   // Add new OTP
   if (isDemo) {
     let data = { userid, otp: "1111" };
-    const sql = await generateInsertQuery("otp", data);
+    // const sql = await generateInsertQuery("otp", data);
     await db(sql.sql, sql.fields);
     return;
   }
