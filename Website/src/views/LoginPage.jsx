@@ -753,6 +753,21 @@ function SignIn() {
                         >
                           Forgot password?
                         </Text>
+                        <Text
+                          color={textColorBrand}
+                          cursor="pointer"
+                          fontSize="sm"
+                          fontWeight="500"
+                          pt="10px"
+                          onClick={() => {
+                            window.open(
+                              "https://zeroxpoint.com/register",
+                              "_blank"
+                            );
+                          }}
+                        >
+                          New Vendor
+                        </Text>
                       </Flex>
                       <Button
                         onClick={handleEmailLogin}
