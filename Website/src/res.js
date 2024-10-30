@@ -1,8 +1,8 @@
 // App Constants
-export const API_URL_USER = "http://54.174.215.101";
-export const API_URL_ADMIN = "http://54.174.215.101/adminapi";
-//export const API_URL_USER = "http://localhost:3000";
-//export const API_URL_ADMIN = "http://localhost:3000/adminapi";
+//export const API_URL_USER = "http://54.174.215.101";
+//export const API_URL_ADMIN = "http://54.174.215.101/adminapi";
+export const API_URL_USER = "http://localhost:3000";
+export const API_URL_ADMIN = "http://localhost:3000/adminapi";
 
 export var USER_ID = "";
 export var JWT_TOKEN = "";

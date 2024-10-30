@@ -6,6 +6,7 @@ const db = require("../zconfig/db");
 const { generateUpdateQuery, generateInsertQuery } = require("../zconfig/res");
 const { verifyToken } = require("../zconfig/jwt");
 const messageTrigger = require("./utils/whatsappmessage");
+const { createOrder } = require("./utils/payment");
 // Place order from application
 router.post("/", verifyToken, async (req, res) => {
   const { userid, cartid, DeliveryLocation } = req.body;
@@ -109,5 +110,9 @@ const sendDocumentsonWhatsapp = async (userId, cartId) => {
     console.log("Files in the folder:", fileNames);
   });
 };
+
+router.post("/processpayment", (req, res) => {
+  createOrder(req, res);
+});
 
 module.exports = router;
