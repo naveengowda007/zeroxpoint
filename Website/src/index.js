@@ -10,6 +10,7 @@ import { Provider, useDispatch } from "react-redux";
 import { handleUserData } from "Utils/auth";
 import { getData } from "res";
 import PaymentPage from "payment";
+import VendorRegistration from 'VendorRegistration';
 // Components
 import LoginPage from "views/LoginPage";
 import Layout from "views/Layout";
@@ -57,7 +58,7 @@ ReactDOM.render(
               <Route path={`/admin`} component={MainComponent} />
               <Route path={`/user`} component={MainComponent} />
               <Route path={`/PaymentPage`} component={PaymentPage} />
-
+              <Route path={`/vendor-registration`} component={VendorRegistration} />
               <Redirect from="/" to="/auth" />
             </Switch>
           </HashRouter>
@@ -69,3 +70,4 @@ ReactDOM.render(
 
   document.getElementById("root")
 );
+ 
