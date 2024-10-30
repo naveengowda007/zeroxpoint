@@ -23,9 +23,11 @@ services:
   nginx:
     image: nginx:latest
     ports:
-      - "80:80"
+      - "80:80" # HTTP
+      - "443:443" # HTTPS
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf # Mount custom NGINX config
+      - ./certs:/etc/nginx/certs # Mount directory for SSL certificates
     depends_on:
       - web
     restart: unless-stopped
