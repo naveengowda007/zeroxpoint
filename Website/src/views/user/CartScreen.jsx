@@ -91,55 +91,95 @@ export default function CartScreen(props) {
     // console.log(transactionId);
   }, [CartData, DeliveryLocation]);
 
-  function handlePayNow() {
+  const loadRazorpay = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
+
+  // Handle the Razorpay payment process
+  const handlePayment = async () => {
+    const res = await fetch("http://localhost:3000/order/processpayment", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        amount: Number(cartPrice), // Replace with the actual amount
+        currency: "INR",
+      }),
+    });
+
+    const data = await res.json();
+    const options = {
+      key: "rzp_live_KvFAjSn43zwpvG", // Your Key ID
+      amount: data.amount,
+      currency: "INR",
+      name: "ZEROX POINT",
+      description: "Transaction",
+      image: "https://example.com/your_logo",
+      order_id: data.id,
+      handler: function (response) {
+        alert(response.razorpay_payment_id);
+        handleAfterPaymentSuccess();
+      },
+      prefill: {
+        name: "Gaurav Kumar",
+        email: "gaurav.kumar@example.com",
+        contact: "9000090000",
+      },
+      notes: {
+        address: "Razorpay Corporate Office",
+      },
+      theme: {
+        color: "#3399cc",
+      },
+      modal: {
+        ondismiss: function () {
+          // Called when the user cancels or closes the Razorpay modal
+          setIsLoading(false);
+          toast({
+            status: "info",
+            title: "Payment Cancelled",
+            description: "You cancelled the payment",
+            duration: 3000,
+            isClosable: true,
+          });
+        },
+      },
+    };
+
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+  };
+
+  // Function to handle the payment process and trigger post-payment actions
+  const handlePayNow = async () => {
     setIsLoading(true);
-    handleAfterPaymentSuccess();
 
-    // ! Payment Function
+    const isLoaded = await loadRazorpay();
+    if (isLoaded) {
+      handlePayment();
+    } else {
+      setIsLoading(false);
+      toast({
+        status: "error",
+        title: "Failed to load payment gateway",
+        description: "Please try again",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
 
-    // let priceString = String(cartPrice)
-
-    // initiateTransaction({
-    // 	upi: 'zeroxpoint@ybl',  // Required
-    // 	payeeName: 'ZeroxPoint', // Required
-    // 	transactionId: transactionId,  // Required
-    // 	currency: 'INR',   //(Required)
-    // 	merchantCategoryCode: 'Main',  // (Required)
-    // 	amount: priceString,  // Required
-    // 	note: transactionId, // (Optional)
-    // })
-    // 	.then((res) => {
-    // 		// console.log(res);
-    // 		if (res.message === "SUCCESS") {
-    // 			handleAfterPaymentSuccess()
-    // 			return
-    // 		}
-
-    // 		setIsLoading(false)
-    // 		toast({
-    // 			title: "Payment failed on previous order!",
-    // 			status: 'error',
-    // 			duration: 3000,
-    // 			isClosable: true,
-    // 		})
-    // 	})
-    // 	.catch((e) => {
-    // 		setIsLoading(false)
-    // 		console.log("Payment Error: ", e);
-    // 		toast({
-    // 			title: "Payment failed on previous order!",
-    // 			status: 'error',
-    // 			duration: 3000,
-    // 			isClosable: true,
-    // 		})
-    // 	});
-  }
-
-  function handleAfterPaymentSuccess() {
-    setIsLoading(true);
+  // Triggered upon successful payment
+  const handleAfterPaymentSuccess = () => {
     upost("/order", { cartid: PayNowCartId.current, DeliveryLocation }, true)
       .then((res) => {
-        // console.log(res);
         setIsLoading(false);
         toast({
           status: "success",
@@ -163,7 +203,7 @@ export default function CartScreen(props) {
           isClosable: true,
         });
       });
-  }
+  };
 
   function getCartPrice() {
     setPriceUpdate(true);
