@@ -17,7 +17,7 @@ import {
   InputRightAddon,
   IconButton,
 } from "@chakra-ui/react";
-import { NavLink, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import DefaultAuth from "layouts/auth/Default";
 import illustration from "assets/img/auth/auth.png";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
@@ -42,7 +42,7 @@ function SignIn() {
   const brandStars = useColorModeValue("brand.500", "brand.400");
 
   const dispatch = useDispatch();
-  const history = useHistory();
+  const historyy = useHistory();
 
   // States
   const downloadLink = "https://zeroxpoint.com/pm/Zeroxpoint-v1.apk";
@@ -255,6 +255,8 @@ function SignIn() {
         setLoading(false);
       });
   };
+
+  const history = useHistory(); // Initialize useHistory
 
   return (
     <DefaultAuth illustrationBackground={illustration}>
@@ -759,12 +761,7 @@ function SignIn() {
                           fontSize="sm"
                           fontWeight="500"
                           pt="10px"
-                          onClick={() => {
-                            window.open(
-                              "https://zeroxpoint.com/register",
-                              "_blank"
-                            );
-                          }}
+                          onClick={() => historyy.push('/vendor-registration')} // Use history.push instead
                         >
                           New Vendor
                         </Text>

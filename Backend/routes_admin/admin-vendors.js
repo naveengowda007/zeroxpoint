@@ -104,6 +104,8 @@ router.post('/addVendor', async (req, res) => {
 
 		updatePayment(userid, req, res)
 	} catch (error) {
+		console.log(error);
+		
 		res.status(500).send({ message: 'Error Creating Shop' })
 	}
 })
