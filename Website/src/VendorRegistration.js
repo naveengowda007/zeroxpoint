@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import illustration from "assets/img/auth/auth.png";
+import DefaultVendorAuth from "layouts/auth/DefaultVendorAuth";
 import {
   Box,
   Button,
@@ -15,7 +17,7 @@ import {
   Heading,
 } from '@chakra-ui/react';
 import axios from './axios';
-import logo from "./assets/img/logo.png";
+
 
 const VendorRegistration = () => {
   // State variables
@@ -123,50 +125,32 @@ const VendorRegistration = () => {
   };
 
   return (
-    <Flex
-      height="100vh"
-      bg="#F7F9FC"
-      justify="center"
-      align="center"
-      px={4}
-      overflow="hidden"
-    >
-      {/* Logo Container */}
-      <Flex
-        flex="1"
-        maxWidth="45%"
-        align="center"
-        justify="center"
-        bg="linear-gradient(135deg, #1d25fb, #7d23fa);"
-        p={4}
-        borderRadius="10px"
-        boxShadow="lg"
-        height="90vh" // Set height to match the form container
-      >
-        <Image src={logo} alt="Logo" boxSize="100px" />
-      </Flex>
-
-      {/* Form Container */}
-      <Box
-        flex="1"
-        maxWidth="45%"
-        bg="white"
-        p={6}
-        borderRadius="10px"
-        boxShadow="lg"
-        ml={6}
-        maxHeight="90vh"
+    <DefaultVendorAuth illustrationBackground={illustration}>
+  
+    <Box
+      flex="1"
+      maxW={{ base: "100%", md: "80%", lg: "60%", xl: "45%" }}  // Increased width for form box
+      w="100%"
+      p={8}  // Adjust padding for breathing room
+      borderRadius="10px"
+      boxShadow="lg"
+      maxHeight="90vh"
         overflowY="auto"
+        css={{
+    "&::-webkit-scrollbar": { display: "none" }, // Hide scrollbar for Chrome, Safari, Edge
+    "-ms-overflow-style": "none",  // Hide scrollbar for IE and Edge
+    "scrollbar-width": "none"  // Hide scrollbar for Firefox
+  }}
+    >
+      <Heading
+        fontSize="24px"
+        fontWeight="bold"
+        textAlign="center"
+        color="#333"
+        mb={4}
       >
-        <Heading
-          fontSize="24px"
-          fontWeight="bold"
-          textAlign="center"
-          color="#333"
-          mb={4}
-        >
-          Vendor Registration
-        </Heading>
+        Vendor Registration
+      </Heading>
         <Box as="form" onSubmit={handleSubmit}>
           {/* Form Fields */}
           <FormControl mb={4} isRequired>
@@ -227,7 +211,6 @@ const VendorRegistration = () => {
               <option value="monthly">Monthly</option>
               <option value="weekly">Weekly</option>
               <option value="yearly">Yearly</option>
-              {/* Add more options as needed */}
             </Select>
           </FormControl>
           <Divider my={4} />
@@ -247,8 +230,12 @@ const VendorRegistration = () => {
           </Link>
         </Text>
       </Box>
-    </Flex>
-  );
+ 
+</DefaultVendorAuth>
+
+
+      );
+      
 };
 
 export default VendorRegistration;
